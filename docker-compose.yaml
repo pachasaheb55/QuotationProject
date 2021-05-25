@@ -1,0 +1,38 @@
+# https://docs.docker.com/compose/compose-file/compose-versioning/
+# Refers to recent version of Compose
+version: "3.9"
+   
+# Define the services that make up your app in docker-compose. yml
+# so they can be run together in an isolated environment.
+services:
+    # container for django web app
+    django:
+        build: .
+        container_name: django
+        # command for running django web server
+        command: python manage.py runserver 0.0.0.0:8000
+        # path for files
+        volumes:
+            - .:/usr/src/app/
+            - ./static:/static
+        # running ports
+        ports:
+            - "8000:8000"
+        # dependencies
+        depends_on:
+            - redis
+    # container for celery app
+    celery:
+        build: .
+        # command to run the celery app
+        command: celery -A QuoteProject worker -l INFO
+        # path for files
+        volumes:
+            - .:/usr/src/app
+        # dependencies
+        depends_on:
+            - django
+            - redis
+    # redis image
+    redis:
+        image: "redis:alpine"

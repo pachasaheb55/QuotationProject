@@ -1,0 +1,50 @@
+<!-- Customer Page which shows 
+    1.login form for the user to enter email
+    2.List view of Quoation on click will take to the summary page  -->
+{% extends 'base.html' %} <!-- Extends base.html file  -->
+
+{% load static %} <!-- loads static fies -->
+
+{% block title %}Customer Page{% endblock %}<!--Title of the page  -->
+
+<!-- Content goes here -->
+{% block content %}
+<!-- validates for the login form from the context params -->
+{% if form %}
+<div class="container-fluid">
+    <div class="d-flex align-items-center py-5">
+        <div class="form-group">
+            <!-- form to post -->
+            <form action='' method="post">
+                {% csrf_token %} <!-- CSRF TOKEN  -->
+                {{ form.as_p }}  <!-- Loads form  -->
+                <input type="submit" value="login" name="type"> <!-- submit for login  -->
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Checking for quote details -->
+{% if quote %}
+<div class="container-fluid">
+    <div class="d-flex align-items-center py-5">
+        <!-- Display quote details like ID and price  -->
+        {% for quot in quote %}
+        <h6> Quotaion ID {{quot.id}}
+            Quote Price {{quot.price}}
+            <a href='/quote/quoteSummary/{{quot.id}}'>VIew Details</a>
+            <!-- a href link to take to the summary page -->
+        </h6>
+        {% endfor %}
+    </div>
+</div>
+<!-- Form for logout -->
+<form action='' method="post">
+    {% csrf_token %}
+    <!-- shows the logout button -->
+    <input type="submit" value="logout" name="type">
+</form>
+{% endif %}
+
+{% endblock content %}

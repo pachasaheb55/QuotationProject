@@ -1,0 +1,57 @@
+<!-- Home/Landing page of the application
+    1.Shows the Moto insurance wallpaper on left side
+    2.Shows options Quick Quote, View Quote, Admin login on right side
+
+#TODO using inline css will move to external
+-->
+<!-- Extends base.html file  -->
+{% extends 'base.html' %}
+
+<!-- loads static fies -->
+{% load static %}
+
+<!--Title of the page  -->
+{% block title %}Home Page{% endblock %}
+
+<!-- Page content goes here -->
+{% block content %}
+<div class="row">
+  <div class="col">
+    <!-- Motor insurance wall paper -->
+    <img src="{% static 'quoteapp/home.jpg' %}" alt="" width="800" height="550" class="d-inline-block align-text-top">
+  </div>
+  <div class="col">
+    <br>
+    <div class="row">
+      <div class="col">
+        <div class="card" style="width: 9rem;">
+          <!-- Quick Quote card html -->
+          <img src="{% static 'quoteapp/quote.png' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <a href="/quote/createQuote/" class="btn btn-primary">QUICK QUOTE</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 9rem;">
+          <!-- VIew Quote card html -->
+          <img src="{% static 'quoteapp/doc.png' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <a href="/quote/customer/" class="btn btn-primary">VIEW QUOTE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="card" style="width: 9rem;">
+      <!-- ADMIN card html -->
+      <img src="{% static 'quoteapp/admin.png' %}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <a href="/quotations-admin/" class="btn btn-primary">ADMIN</a>
+      </div>
+    </div><br>
+  </div>
+</div>
+
+
+{% endblock content %}

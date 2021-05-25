@@ -1,0 +1,117 @@
+<!-- Quote Summary page
+    1.Shows Customer, Vehicle, Coverage
+    2.Shows the Quote summary -->
+<!doctype html>
+<html>
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<!-- using internal css for small styles 
+    but will move to external css-->
+<style>
+    .card-header {
+        background-color: aquamarine;
+    }
+
+    .card-body {
+        background-color: bisque;
+    }
+
+    .footer {
+        background-color: gainsboro;
+        width: 100%;
+        color: black;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Quote Summary Form</h1>
+        </div>
+    </div>
+<!-- Customer Details -->
+    <div class="card text-center">
+        <div class="card-header">
+            Customer Details
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h6> Name: {{ quote.customer.name }}</h6>
+                </div>
+                <div class="col">
+                    <h6> Email: {{ quote.customer.email }}</h6>
+                </div>
+                <div class="col">
+                    <h6> Phone Number: {{ quote.customer.mobile_number }}</h6>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br><br>
+    <!-- Vehicle Details -->
+    <div class="card text-center">
+        <div class="card-header">
+            Vehicle Details
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h6> Vehicle Year: {{ quote.vehicle.year }}</h6>
+                </div>
+                <div class="col">
+                    <h6> Vehicle Make: {{ quote.vehicle.make }}</h6>
+                </div>
+                <div class="col">
+                    <h6> Vehicle Model: {{ quote.vehicle.model }}</h6>
+                </div>
+                <div class="col">
+                    <h6> Vehicle Number: {{ quote.vehicle.number }}</h6>
+                </div>
+                <div class="col">
+                    <h6> Vehicle Price: {{ quote.vehicle.price }}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <!-- Coverage Details -->
+    <div class="card text-center">
+        <div class="card-header">
+            Coverage Details
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for cov in coverages %}
+                <div class="col">
+                    <h6> {{ cov.name }}</h6>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <!-- Quote Price Details -->
+    <div class="card text-center">
+        <div class="card-header">
+            Quote Price Details(RM)
+        </div>
+        <div class="card-body">
+            <h3>{{ quote.quote_price }} </h3>
+        </div>
+    </div>
+    <br><br>
+    <!-- Footer section -->
+    <div class="footer">
+        <p>Thanks For Visiting Quote Application for Motor Insurance @ Powered By <a href="https://tigerlab.com/">TIGER
+                LABS</a></p>
+        <p>Click <a href="/quote/customer/">Here</a> to see existing Quotes</p>
+    </div>
+</body>
+
+</html>

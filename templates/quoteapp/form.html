@@ -1,0 +1,72 @@
+<!-- Form Page for Create Quote
+    1.Shows Customer, Vehicle, Coverage Forms
+    2.Shows Get Quote Button, Email Preference checkbox, Summary button 
+    3.Shows the Quote value after clicking on GET QUOTE button
+-->
+<!-- Extends base.html file  -->
+{% extends 'base.html' %}
+
+<!-- loads static fies -->
+{% load static %}
+
+
+{% block title %}Create Quote Page{% endblock %}
+<!--Title of the page  -->
+
+<!-- Content goes here -->
+{% block content %}
+<!-- using internal css for small styles -->
+<style>
+    main {
+        background-color: antiquewhite;
+    }
+</style>
+<!-- main content -->
+<main>
+    <div class="container-fluid">
+        <div class="d-flex align-items-center py-5">
+            <div class="form-group">
+                <!-- Forms  -->
+                <form action='' method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <!-- looping all the forms and labels using for loop -->
+                        {% for form, label in forms %}
+                        <div class="col">
+                            <!-- showing the counter and label details -->
+                            <b>Step </b> {{forloop.counter}} : <b>{{ label}} Details</b>
+                            <br>
+                            <!-- rendering the form -->
+                            {{ form.as_p }}
+                            {% if forloop.counter == 3 %}
+                            <div class="d-grid gap-2 col-8 mx-auto">
+                                <!-- GET QUOTE Button -->
+                                <input type="submit" value="GET QUOTE" name="quote">
+                                <div class='row'>
+                                    <!-- Checkbox for email preference -->
+                                    <p><input type="checkbox" name="email_flag" value="true"> Get Summary By Email</p>
+                                </div>
+                                <input type="submit" value="Summary" name="summary">
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <!-- Returns the total Quote values -->
+                        {% if quote_value %}
+                        <div class="alert alert-success d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                                <use xlink:href="#check-circle-fill" />
+                            </svg>
+                            <!-- displays the quote value -->
+                            <div>
+                                Your Quotation is <h3><b>{{quote_value}}</b></h3>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
