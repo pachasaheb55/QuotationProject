@@ -6,7 +6,6 @@ Web Application for creating Quotes in Motor Insurance.
 Pre-requisites: Project is built and validated using the following software
 Insall the below,
 - Python (v.3.8), 
-- HTML5, Javascript, Css, JQuery, Bootstrap
 - Django (v.3.2)
 - Docker(latest for windows/ubuntu)
 
@@ -15,7 +14,7 @@ Insall the below,
 2. Navigate to QuoationProject directory and open a command prompt to execute the following command
 
      ```sh 
-     PATH\QuotaionProject>docker-compose up --build  (or) docker-compose up
+     PATH\QuotationProject>docker-compose up --build  (or) docker-compose up
      ``` 
    It will build all the containers/images. Check for below output in the log to ensure the build is successfull and everything is up and running
    >For celery check  the output as:
@@ -60,17 +59,17 @@ Note: If any docker issues arise due to other softwares running in other dockers
 
 	<img width="750" alt="home" src="https://user-images.githubusercontent.com/80810225/119461092-fe898b80-bd5c-11eb-8efa-16a9b4b020ff.PNG">
 	
-2. Create Quote- By clicking on QUICK QUOTE button customer will navigated to http://localhost:8000/quote/createQuote/ and cansee the create quote page with all the 3 forms.
+2. Create Quote- By clicking on QUICK QUOTE button customer will navigated to http://localhost:8000/quote/createQuote/ and can see the create quote page with all the 3 forms.
  
 	<img width="750" alt="create-quote" src="https://user-images.githubusercontent.com/80810225/119462202-17467100-bd5e-11eb-8c66-3da44e49ec5d.PNG">
    
-   Now user can enter the required details for the quote to create and click on the GET QUTOE button for getting the quotation price. Below are the example screensshots
+   Now user can enter the required details for the quote to create and click on the GET QUTOE button for getting the quotation price. Below are the example screenshots
    
-   >ScreenShot 1: Successful Quote 
+   >Screenshot 1: Successful Quote 
    	
 	![example2](https://user-images.githubusercontent.com/80810225/119464558-79a07100-bd60-11eb-90ea-ee0faa5992a3.png)
 
-   >Screenshot 2: successful Quote
+   >Screenshot 2: Successful Quote
    
    	![exampl-1](https://user-images.githubusercontent.com/80810225/119464670-99d03000-bd60-11eb-82f2-2b9348388ade.png)
 	
@@ -83,10 +82,9 @@ Note: If any docker issues arise due to other softwares running in other dockers
 	![example-3 (2)](https://user-images.githubusercontent.com/80810225/119466645-760de980-bd62-11eb-8c5d-e6255d32cb8d.png)
 	
    Note:
-   
-   	a. Each field in the form consists of validations.
-	b. Provided a checkbox field Get Summary By Email, and its value will be saved in Quotation Table. For now havent implemented the mail send from customer side. Only 		insurance agent who can login and can send the email.
-	c. Here user can select multiple coverages and quatation price will be calculated accordingly.
+   	- Each field in the form consists of validations.
+	- Provided a checkbox field Get Summary By Email, and its value will be saved in Quotation Table. For now havent implemented the mail send from customer side. Only 		insurance agent who can login and can send the email.
+	- Here user can select multiple coverages and quatation price will be calculated accordingly.
 	
 3. After updating required values and seeing the quote price displayed below, customer can click on SUMMARY button which acts as a submit for all the forms and quotaion gets 	created in the database. And screen will be automaticllay routed to Quote Summary Page as shown below at http://localhost:8000/quote/quoteSummary/1/
 	
@@ -109,7 +107,7 @@ Note: If any docker issues arise due to other softwares running in other dockers
 	<img width="960" alt="email-validation" src="https://user-images.githubusercontent.com/80810225/119486677-26d1b400-bd76-11eb-832f-17ab1291cc4c.PNG">	
 
   After giving the correct email id and clicking on login will take to the customer dashboard screen where details are shown in an table format. For full detail customer can 	click on last row in the table, which route to summary page for full details
-  	<img width="750" alt="logged-in" src="https://user-images.githubusercontent.com/80810225/119486707-2f29ef00-bd76-11eb-8d4e-74c431af7065.PNG">
+  		<img width="750" alt="logged-in" src="https://user-images.githubusercontent.com/80810225/119486707-2f29ef00-bd76-11eb-8d4e-74c431af7065.PNG">
 
   Note: For now we are taking email id as unique in database, so one customer with one email id can create only one quote.
 	
@@ -130,31 +128,30 @@ Note: If any docker issues arise due to other softwares running in other dockers
 
 	
 # TASK COMPLETION:
-Steps:
-1.      Create an app called 'quotations'. 
-		- Created a Djnago project called 'QuotationProject', Djangoapp- 'quoteapp', docker-compose.yaml, DOcker file
-2.      Design and create models for 'Quotation'.
-		- Created models for Customer, Vehicle, CoverageInfo, Quotations in `QuotationProject\quoteapp\models.py`
-3.      Create Django admin with link `http://localhost:8000/quotations-admin/` for insurance agents to login and view the quotations data.
-		- Modified the admin site urls to above url in `QuoteProject\urls.py`
-4.      Create Django admin action on Quotation model admin for insurance agent to select on quotations and "send email to user".
-		- Created an admin action in `quoteapp\admin.py` file as send_email_to_customer()
-5.      Create a quotation formset page for users to submit the form and generate the quotation pricing.
-		- Created Forms for indiviudal models with validations in `quoteapp\forms.py`
-6.      Create quotation pdf generator function and send email function.
-		- Created celery task in `quoteapp\tasks.py` as pdf_generator_task() which will render an HTML to PDF.
-7.      Create a login page for users to login to view their created quotations.
-		- Created a Login Page for customer to view the created quote at `http://localhost:8000/quote/customer/`
+1. Create an app called 'quotations'. 
+- Created a Djnago project called 'QuotationProject', Djangoapp as 'quoteapp', docker-compose.yaml, DOcker file
+
+2. Design and create models for 'Quotation'.
+- Created models for Customer, Vehicle, CoverageInfo, Quotations in `QuotationProject\quoteapp\models.py`
+
+3. Create Django admin with link `http://localhost:8000/quotations-admin/` for insurance agents to login and view the quotations data.
+- Modified the admin site urls to above url in `QuoteProject\urls.py`
+5.Create Django admin action on Quotation model admin for insurance agent to select on quotations and "send email to user".
+- Created an admin action in `quoteapp\admin.py` file as send_email_to_customer()
+6.Create a quotation formset page for users to submit the form and generate the quotation pricing.
+- Created Forms for indiviudal models with validations in `quoteapp\forms.py`
+7.Create quotation pdf generator function and send email function.
+- Created celery task in `quoteapp\tasks.py` as pdf_generator_task() which will render an HTML to PDF.
+8.Create a login page for users to login to view their created quotations.
+- Created a Login Page for customer to view the created quote at `http://localhost:8000/quote/customer/`
+- 
  Special requests:
 1.      Setup the application with Docker. - Yes created a Python-Django, Celery, Redis based docker application 
 2.      Generate the PDF with Celery. - Yes, written a celery task for pdf_generation
 3.      Setup documentation. - Below setup document consists of steps from scratch and above setup section can be followed to run the app in any other machine.
 		[step_creation.docx](https://github.com/pachasaheb55/QuotationProject/files/6539271/step_creation.docx)
 		
-# TODO
-- Give Descripition of every file in the project.
-- Complete the testcases in quoteapp\tests.py
-- Imporve exception handling and logging
+
 
 
   
