@@ -30,6 +30,7 @@ Insall the below,
    django    | Starting development server at http://0.0.0.0:8000/
    ```
 3. Once we see the above output, open any browser and navigate to link http://localhost:8000/quote/ to find the landing page.
+4. Please give the 
 
 Note: If any docker issues arise due to other softwares running in other dockers we can run the below
        ```
@@ -83,7 +84,33 @@ Note: If any docker issues arise due to other softwares running in other dockers
    
    Note: User can use links in the footer section to Navigagte to Home Page or Cusotmer Quote View Page.
    
-4. 
+4. In HOME PAGE VIEW QUOTES Button will navigate customer to a login page at url http://localhost:8000/quote/customer/ as shown below
+	
+	<img width="750" alt="login" src="https://user-images.githubusercontent.com/80810225/119485989-5af8a500-bd75-11eb-8f9a-4709b98f8b6c.PNG">
+
+   This customer login page has its own validations. Now user can enter registered mail id and can login into application. See the below screens
+   
+   >Screenshot 1:
+   
+   	<img width="750" alt="invalid-email" src="https://user-images.githubusercontent.com/80810225/119486655-1de0e280-bd76-11eb-8a7c-cf0dc6dfd993.PNG">	
+	
+   >Screenshot 2:
+
+	<img width="960" alt="email-validation" src="https://user-images.githubusercontent.com/80810225/119486677-26d1b400-bd76-11eb-832f-17ab1291cc4c.PNG">	
+
+  After giving the correct email id and clicking on login will take to the customer dashboard screen where details are shown in an table format. For full detail customer can 	click on last row in the table, which route to summary page for full details.
+  
+  	<img width="750" alt="logged-in" src="https://user-images.githubusercontent.com/80810225/119486707-2f29ef00-bd76-11eb-8d4e-74c431af7065.PNG">
+
+  Note: For now we are taking email id as unique in database, so one customer with one email id can create only one quote.
+	
+5. 
+
+  
+  	
+  
+
+
 
 
 
