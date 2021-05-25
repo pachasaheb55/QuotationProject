@@ -30,8 +30,18 @@ Insall the below,
    django    | Starting development server at http://0.0.0.0:8000/
    ```
 3. Once we see the above output, open any browser and navigate to link http://localhost:8000/quote/ to find the landing page.
-4. Please give the 
-
+4. Please give the email settings in quoteapp/settings.py file for email sending actions. Please change the below settings accordingly
+	```
+	EMAIL_HOST = 'smtp.gmail.com'
+	EMAIL_PORT = '587'
+	EMAIL_HOST_USER = 'abcde@gmail.com'
+	EMAIL_HOST_PASSWORD = 'abcde'
+	```
+5. SuperUser is already created for the admin login page at http://localhost:8000/quotations-admin/. Credentials for admin user are
+	```
+	username: admin
+	password: admin
+	```
 Note: If any docker issues arise due to other softwares running in other dockers we can run the below
        ```
        docker system prune -a
@@ -98,13 +108,54 @@ Note: If any docker issues arise due to other softwares running in other dockers
 
 	<img width="960" alt="email-validation" src="https://user-images.githubusercontent.com/80810225/119486677-26d1b400-bd76-11eb-832f-17ab1291cc4c.PNG">	
 
-  After giving the correct email id and clicking on login will take to the customer dashboard screen where details are shown in an table format. For full detail customer can 	click on last row in the table, which route to summary page for full details.
-  
+  After giving the correct email id and clicking on login will take to the customer dashboard screen where details are shown in an table format. For full detail customer can 	click on last row in the table, which route to summary page for full details
   	<img width="750" alt="logged-in" src="https://user-images.githubusercontent.com/80810225/119486707-2f29ef00-bd76-11eb-8d4e-74c431af7065.PNG">
 
   Note: For now we are taking email id as unique in database, so one customer with one email id can create only one quote.
 	
-5. 
+5. Now Insurance Agent can Login as Admin with django admin at http://localhost:8000/quotations-admin/. Please enter the credentials as shown in Setup seciton step 5.
+	
+	<img width="750" alt="admin-login" src="https://user-images.githubusercontent.com/80810225/119495009-9009f500-bd7f-11eb-8b58-5c3fddf13127.PNG">
+
+   Enter the Credetnial and click on login
+   	<img width="750" alt="admin-coverages" src="https://user-images.githubusercontent.com/80810225/119495130-b3cd3b00-bd7f-11eb-9023-399c594ed2bc.PNG">
+
+   Admin will have all the access to models/tables data as shown in the above screen. So insurance agent as an admin can edit the coverage values as needed.
+6. Insurane Agent can now access Quotations model in Django admin portal and can select the required quotation object and can perform the django admin action of 'Send Email 	to Customer' displayed on the top by selecting and clicking 'GO' button.
+
+	![Screenshot (48)](https://user-images.githubusercontent.com/80810225/119495668-4372e980-bd80-11eb-87ea-ec2903073862.png)
+
+   Now the quotation selected is linked to a customer with respective email id will recieve a mail from the insurance agent with an attachment PDF of Quotation Summary with      the Customer Details, Vehicle Details, Coverage Details as shown below 
+   	<img width="749" alt="email" src="https://user-images.githubusercontent.com/80810225/119496317-00fddc80-bd81-11eb-9091-74e4d1688e70.PNG">
+
+	
+# TASK COMPLETION:
+Steps:
+1.      Create an app called 'quotations'. 
+		- Created a Djnago project called 'QuotationProject', Djangoapp- 'quoteapp', docker-compose.yaml, DOcker file
+2.      Design and create models for 'Quotation'.
+		- Created models for Customer, Vehicle, CoverageInfo, Quotations in `QuotationProject\quoteapp\models.py`
+3.      Create Django admin with link `http://localhost:8000/quotations-admin/` for insurance agents to login and view the quotations data.
+		- Modified the admin site urls to above url in `QuoteProject\urls.py`
+4.      Create Django admin action on Quotation model admin for insurance agent to select on quotations and "send email to user".
+		- Created an admin action in `quoteapp\admin.py` file as send_email_to_customer()
+5.      Create a quotation formset page for users to submit the form and generate the quotation pricing.
+		- Created Forms for indiviudal models with validations in `quoteapp\forms.py`
+6.      Create quotation pdf generator function and send email function.
+		- Created celery task in `quoteapp\tasks.py` as pdf_generator_task() which will render an HTML to PDF.
+7.      Create a login page for users to login to view their created quotations.
+		- Created a Login Page for customer to view the created quote at `http://localhost:8000/quote/customer/`
+ Special requests:
+1.      Setup the application with Docker. - Yes created a Python-Django, Celery, Redis based docker application 
+2.      Generate the PDF with Celery. - Yes, written a celery task for pdf_generation
+3.      Setup documentation. - Below setup document consists of steps from scratch and above setup section can be followed to run the app in any other machine.
+		[step_creation.docx](https://github.com/pachasaheb55/QuotationProject/files/6539271/step_creation.docx)
+		
+# TODO
+- Give Descripition of every file in the project.
+- Complete the testcases in quoteapp\tests.py
+- Imporve exception handling and logging
+
 
   
   	
