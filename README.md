@@ -48,6 +48,7 @@ Note: If any docker issues arise due to other softwares running in other dockers
 - Admin Login
 
 	<img width="750" alt="home" src="https://user-images.githubusercontent.com/80810225/119461092-fe898b80-bd5c-11eb-8efa-16a9b4b020ff.PNG">
+	
 2. Create Quote- By clicking on QUICK QUOTE button customer will navigated to http://localhost:8000/quote/createQuote/ and cansee the create quote page with all the 3 forms.
  
 	<img width="750" alt="create-quote" src="https://user-images.githubusercontent.com/80810225/119462202-17467100-bd5e-11eb-8c66-3da44e49ec5d.PNG">
@@ -71,9 +72,18 @@ Note: If any docker issues arise due to other softwares running in other dockers
 	![example-3 (2)](https://user-images.githubusercontent.com/80810225/119466645-760de980-bd62-11eb-8c5d-e6255d32cb8d.png)
 	
    Note:
+   
    	a. Each field in the form consists of validations.
 	b. Provided a checkbox field Get Summary By Email, and its value will be saved in Quotation Table. For now havent implemented the mail send from customer side. Only 		insurance agent who can login and can send the email.
-
+	c. Here user can select multiple coverages and quatation price will be calculated accordingly.
+	
+3. After updating required values and seeing the quote price displayed below, customer can click on SUMMARY button which acts as a submit for all the forms and quotaion gets 	created in the database. And screen will be automaticllay routed to Quote Summary Page as shown below at http://localhost:8000/quote/quoteSummary/1/
+	
+	![quote-summary](https://user-images.githubusercontent.com/80810225/119469940-7491f080-bd65-11eb-835c-4f83873a2fa3.png)
+   
+   Note: User can use links in the footer section to Navigagte to Home Page or Cusotmer Quote View Page.
+   
+4. 
 
 
 
