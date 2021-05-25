@@ -5,7 +5,7 @@ from xhtml2pdf import pisa
 from django.template.loader import get_template
 from io import BytesIO
 from .models import Quotation
-
+import os
 
 # celery shared task lets you create tasks that can be used by any app(s)
 @shared_task
@@ -27,10 +27,10 @@ def pdf_generator_task(quotation):
 
 def send_email(quote):
     """ Send Email method """
-    subject, from_email = 'Quote Summary for Vehicle', 'pachasaheb55@gmail.com'
+    subject, from_email = 'Quote Summary for Vehicle', os.environ.get("EMAIL_HOST_USER", None)
     text_content = 'This is an important message.'
     html_content = '<p>This is an <strong>Quote Summary</strong> from ' \
-                   'Quotation Application For Motor Insurance</p>'
+                   'Quotation Application For Motor Insurance @ Powered By TIGER LABS</p>'
     msg = EmailMultiAlternatives(subject, text_content, from_email,
                                  [quote.customer.email])
     msg.attach_alternative(html_content, "text/html")

@@ -10,7 +10,7 @@ class QuotationAdmin(admin.ModelAdmin):
 
     # admin action with description
     @admin.action(description='Send Email to Customer')
-    def send_email_to_customer(self, modeladmin, request, queryset):
+    def send_email_to_customer(modeladmin, request, queryset):
         for quote in queryset:
             pdf_generator_task.delay(quote.id)
             

@@ -9,6 +9,24 @@
 
 <!-- Content goes here -->
 {% block content %}
+<style>
+    table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
 <!-- validates for the login form from the context params -->
 {% if form %}
 <div class="container-fluid">
@@ -23,6 +41,7 @@
         </div>
     </div>
 </div>
+{{ message }}
 {% endif %}
 
 <!-- Checking for quote details -->
@@ -31,11 +50,21 @@
     <div class="d-flex align-items-center py-5">
         <!-- Display quote details like ID and price  -->
         {% for quot in quote %}
-        <h6> Quotaion ID {{quot.id}}
-            Quote Price {{quot.price}}
-            <a href='/quote/quoteSummary/{{quot.id}}'>VIew Details</a>
-            <!-- a href link to take to the summary page -->
-        </h6>
+        <table>
+            <tr>
+              <th>Customer Name</th>
+              <th>Vehicle Number</th>
+              <th>Quotation Price</th>
+              <th>Details</th>
+            </tr>
+            <tr>
+              <td>{{ quot.customer.name }}</td>
+              <td>{{ quot.vehicle.number }}</td>
+              <td>{{ quot.quote_price }}</td>
+              <td> <a href='/quote/quoteSummary/{{quot.id}}'>View Details</a></td>
+            </tr>
+        </table>
+        
         {% endfor %}
     </div>
 </div>
@@ -46,5 +75,4 @@
     <input type="submit" value="logout" name="type">
 </form>
 {% endif %}
-
 {% endblock content %}

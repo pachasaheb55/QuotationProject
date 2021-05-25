@@ -63,7 +63,6 @@ class CreateQuoteView(TemplateView):
         """ POST actions for create quote view """
         # getting the request.POST values
         form_values = request.POST
-        print('form-values', form_values)
         context = {}
         # assigning to individual forms
         form = [CusotmerForm(form_values), VehicleForm(form_values),
@@ -81,7 +80,6 @@ class CreateQuoteView(TemplateView):
                 context['quote_value'] = calculate_quote(
                     form_values.get('price'),
                     form_values.getlist('the_coverages'))
-                print('hree', context['quote_value'])
                 if 'summary' in form_values:
                     # saving the forms
                     customer_id = save(CusotmerForm(form_values))
@@ -95,9 +93,6 @@ class CreateQuoteView(TemplateView):
                                                 email_flag)
                     # redirect to quote summary page
                     return redirect(f'/quote/quoteSummary/{get_quote_id}/')
-        print('hree', CoverageSelectedForm(form_values).is_valid(), 
-            CusotmerForm(form_values).is_valid(),
-                VehicleForm(form_values).is_valid())
         return render(request, self.template_name, context)
 
 
@@ -140,7 +135,7 @@ class CustomerView(TemplateView):
             if request.POST.get('type') == 'login':
                 # if customer clicks on login
                 customer = Customer.objects.filter(email=request.POST.get('email'))
-                if customer:
+                if customer.count():
                     # if customer exists, assign customer id to request session
                     # which acts as a login for customer
                     request.session['customer_id'] = customer[0].id
@@ -149,6 +144,10 @@ class CustomerView(TemplateView):
                     # returning the quote summary details
                     get_quote = Quotation.objects.filter(customer=customer[0].id)
                     context['quote'] = list(get_quote)
+                else:
+                    print('heres')
+                    context['form'] = LoginForm(request.POST)
+                    context['message'] = "Customer Does not Exist with Email."
             elif request.POST.get('type') == 'logout':
                 # if user clicks on logout button all the session will be removed
                 request.session.flush()
