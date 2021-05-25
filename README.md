@@ -136,20 +136,20 @@ Note: If any docker issues arise due to other softwares running in other dockers
 
 3. Create Django admin with link `http://localhost:8000/quotations-admin/` for insurance agents to login and view the quotations data.
 - Modified the admin site urls to above url in `QuoteProject\urls.py`
-5.Create Django admin action on Quotation model admin for insurance agent to select on quotations and "send email to user".
+5. Create Django admin action on Quotation model admin for insurance agent to select on quotations and "send email to user".
 - Created an admin action in `quoteapp\admin.py` file as send_email_to_customer()
-6.Create a quotation formset page for users to submit the form and generate the quotation pricing.
+6. Create a quotation formset page for users to submit the form and generate the quotation pricing.
 - Created Forms for indiviudal models with validations in `quoteapp\forms.py`
-7.Create quotation pdf generator function and send email function.
+7. Create quotation pdf generator function and send email function.
 - Created celery task in `quoteapp\tasks.py` as pdf_generator_task() which will render an HTML to PDF.
-8.Create a login page for users to login to view their created quotations.
+8. Create a login page for users to login to view their created quotations.
 - Created a Login Page for customer to view the created quote at `http://localhost:8000/quote/customer/`
-- 
+
  Special requests:
-1.      Setup the application with Docker. - Yes created a Python-Django, Celery, Redis based docker application 
-2.      Generate the PDF with Celery. - Yes, written a celery task for pdf_generation
-3.      Setup documentation. - Below setup document consists of steps from scratch and above setup section can be followed to run the app in any other machine.
-		[step_creation.docx](https://github.com/pachasaheb55/QuotationProject/files/6539271/step_creation.docx)
+1. Setup the application with Docker. Yes created a Python-Django, Celery, Redis based docker application 
+2. Generate the PDF with Celery. Yes, written a celery task for pdf_generation
+3. Setup documentation. Below setup document consists of steps from scratch and above setup section can be followed to run the app in any other machine.
+	[step_creation.docx](https://github.com/pachasaheb55/QuotationProject/files/6539271/step_creation.docx)
 		
 
 
