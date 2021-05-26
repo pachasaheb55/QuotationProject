@@ -1,8 +1,7 @@
+""" admin file for quote app"""
 from django.contrib import admin
-from .models import *
+from quoteapp.models import Customer, Vehicle, CoverageInfo, Quotation
 from quoteapp.tasks import pdf_generator_task
-
-# Register your models here.
 
 
 class QuotationAdmin(admin.ModelAdmin):
@@ -11,12 +10,15 @@ class QuotationAdmin(admin.ModelAdmin):
     # admin action with description
     @admin.action(description='Send Email to Customer')
     def send_email_to_customer(modeladmin, request, queryset):
+        """ admin action for sending email """
         for quote in queryset:
+            # call celery task
             pdf_generator_task.delay(quote.id)
-            
+
     actions = [send_email_to_customer, ]  # <-- Add the list action function here
 
 # register the models
 models = [Customer, Vehicle, CoverageInfo]
 admin.site.register(models)
+# regitstr for admin action
 admin.site.register(Quotation, QuotationAdmin)

@@ -1,6 +1,7 @@
+""" URL's for quote application """
 from django.urls import path
-
-from .views import *
+from quoteapp.views import HomePageView, CreateQuoteView, \
+    QuoteSummaryView, CustomerView
 
 urlpatterns = [
     # url for landing/home page

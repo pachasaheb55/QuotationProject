@@ -1,12 +1,11 @@
-from typing import List
-from django.db import models
-from django.core.validators import MinValueValidator
+""" Models file for quoteapp """
 from decimal import Decimal
 import datetime
+from django.db import models
+from django.core.validators import MinValueValidator
+
 
 # Create your models here.
-
-
 class Customer(models.Model):
     """ Model for customer table """
     name = models.CharField(max_length=25)
@@ -32,7 +31,7 @@ class Vehicle(models.Model):
                                 decimal_places=2,
                                 default=100000.00,
                                 validators=[MinValueValidator(Decimal('30000.00'),
-                                                              message="Values below 30000 are not permitted.")])
+                                message="Values below 30000 are not permitted.")])
 
     def __str__(self):
         """ Gives human-readable representation of the Vehicle Model """

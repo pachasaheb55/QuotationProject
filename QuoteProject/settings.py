@@ -140,6 +140,6 @@ CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 # will move to seperate env file for best practice(todo)
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'pachasaheb55@gmail.com'
-EMAIL_HOST_PASSWORD = '9652544868'
+EMAIL_HOST_USER = 'abcd@gmail.com'
+EMAIL_HOST_PASSWORD = 'xyz'
 EMAIL_USE_TLS = True

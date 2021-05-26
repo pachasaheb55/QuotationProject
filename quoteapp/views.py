@@ -1,8 +1,10 @@
-from quoteapp.models import CoverageInfo, Customer, Quotation, Vehicle
+""" Views file for quoteapp """
 from django.views.generic.base import TemplateView
-from .forms import CusotmerForm, LoginForm, VehicleForm, CoverageSelectedForm
 from django.shortcuts import redirect, render
 from django.db.models import Sum
+from quoteapp.forms import CusotmerForm, LoginForm, VehicleForm, CoverageSelectedForm
+from quoteapp.models import CoverageInfo, Customer, Quotation, Vehicle
+
 
 #seperating business logic into different functions from actual views
 def calculate_quote(price, coverage_ids):
@@ -48,7 +50,7 @@ class CreateQuoteView(TemplateView):
     """ Template View for CreateQuote """
     template_name = "form.html"
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         """ GET actions for create quote vie"""
         context = {}
         # getting the empty forms and sending as response
@@ -63,6 +65,7 @@ class CreateQuoteView(TemplateView):
         """ POST actions for create quote view """
         # getting the request.POST values
         form_values = request.POST
+        print(form_values)
         context = {}
         # assigning to individual forms
         form = [CusotmerForm(form_values), VehicleForm(form_values),
@@ -74,25 +77,26 @@ class CreateQuoteView(TemplateView):
         if CusotmerForm(form_values).is_valid() and \
                 VehicleForm(form_values).is_valid() and \
                 CoverageSelectedForm(form_values).is_valid():
-            # checking for quote and summary flags
-            if 'quote' or 'summary' in form_values:
-                # calculating the quote value
-                context['quote_value'] = calculate_quote(
+            quote_value = calculate_quote(
                     form_values.get('price'),
                     form_values.getlist('the_coverages'))
-                if 'summary' in form_values:
-                    # saving the forms
-                    customer_id = save(CusotmerForm(form_values))
-                    vehicle_id = save(VehicleForm(form_values))
-                    email_flag = True if form_values.get('email_flag') == 'true' else False 
-                    # saving a quote and get the quote id
-                    get_quote_id = create_quote(customer_id,
-                                                vehicle_id,
-                                                form_values.getlist('the_coverages'),
-                                                context['quote_value'],
-                                                email_flag)
-                    # redirect to quote summary page
-                    return redirect(f'/quote/quoteSummary/{get_quote_id}/')
+            # calculating the quote value
+            context['quote_value'] = quote_value
+            if 'summary' in form_values:
+                # saving the forms
+                customer_id = save(CusotmerForm(form_values))
+                vehicle_id = save(VehicleForm(form_values))
+                email_flag = False
+                if form_values.get('email_flag') == 'true':
+                    email_flag = True
+                # saving a quote and get the quote id
+                get_quote_id = create_quote(customer_id,
+                                            vehicle_id,
+                                            form_values.getlist('the_coverages'),
+                                            context['quote_value'],
+                                            email_flag)
+                # redirect to quote summary page
+                return redirect(f'/quote/quoteSummary/{get_quote_id}/')
         return render(request, self.template_name, context)
 
 
@@ -100,9 +104,9 @@ class QuoteSummaryView(TemplateView):
     """ Template View for QuoteSummary """
     template_name = "summary.html"
 
-    def get(self, request, quote_id):
+    def get(self, request, *args, **kwargs):
         """ GET request action for Quote Summary Page"""
-        context = {'quote': Quotation.objects.get(id=quote_id)}
+        context = {'quote': Quotation.objects.get(id=kwargs['quote_id'])}
         # assigning the context variables
         context['coverages'] = list(context['quote'].coverage.all())
         # return the quote summary details
@@ -113,7 +117,7 @@ class CustomerView(TemplateView):
     """ Template View for Customer Login and View Quote"""
     template_name = 'customer-quotes.html'
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         """ GET actions for customer"""
         context = {}
         # using request session for validation of customer
@@ -145,7 +149,6 @@ class CustomerView(TemplateView):
                     get_quote = Quotation.objects.filter(customer=customer[0].id)
                     context['quote'] = list(get_quote)
                 else:
-                    print('heres')
                     context['form'] = LoginForm(request.POST)
                     context['message'] = "Customer Does not Exist with Email."
             elif request.POST.get('type') == 'logout':

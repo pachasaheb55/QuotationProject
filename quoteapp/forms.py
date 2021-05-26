@@ -1,6 +1,7 @@
-from django.forms import *
-from django.forms.models import modelform_factory
-from .models import *
+"""Forms file for quote app """
+from django.forms import ModelForm, TextInput, EmailInput, \
+    Select, NumberInput, ModelMultipleChoiceField, CheckboxSelectMultiple
+from quoteapp.models import Customer, Vehicle, CoverageInfo
 
 
 class CusotmerForm(ModelForm):
@@ -23,9 +24,9 @@ class CusotmerForm(ModelForm):
                                               'placeholder': '60121234567',
                                               'autocomplete': 'off',
                                               'pattern': '[0-9]{11}',
-                                              'title': 'Enter 11 digit number only. '}),
+                                              'title': 'Enter 11 digit number only.'}),
         }
-        
+
 
 class VehicleForm(ModelForm):
     """ ModelForm for Customer """
@@ -65,9 +66,8 @@ class CoverageSelectedForm(ModelForm):
     class Meta:
         """Config for CoverageInfo"""
         model = CoverageInfo
-        fields = ('name', 'value')
         exclude = ['name', 'value']
-       
+
 
 class LoginForm(ModelForm):
     """ ModelForm for Login """
@@ -76,7 +76,6 @@ class LoginForm(ModelForm):
         """Config for Login form"""
         model = Customer
         fields = ('email',)
-        exclude = ('name', 'mobile_number',)
         # fields and widgets
         widgets = {
             'email': EmailInput(attrs={'class': 'form-control',

@@ -1,11 +1,13 @@
+""" Tasks file for quoteapp """
 from __future__ import absolute_import, unicode_literals
-from celery import shared_task
-from django.core.mail import EmailMultiAlternatives
-from xhtml2pdf import pisa
-from django.template.loader import get_template
 from io import BytesIO
-from .models import Quotation
 import os
+
+from celery import shared_task
+from xhtml2pdf import pisa
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from quoteapp.models import Quotation
 
 # celery shared task lets you create tasks that can be used by any app(s)
 @shared_task
@@ -40,4 +42,5 @@ def send_email(quote):
 
 
 def get_quote_object(quote_id):
+    """ required to get the quotation details """
     return Quotation.objects.get(id=quote_id)
