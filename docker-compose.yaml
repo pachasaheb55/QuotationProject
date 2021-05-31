@@ -10,7 +10,7 @@ services:
         build: .
         container_name: django
         # command for running django web server
-        command: python manage.py runserver 0.0.0.0:8000
+        command: gunicorn QuoteProject.wsgi --bind 0.0.0.0:8000
         # path for files
         volumes:
             - .:/usr/src/app/
@@ -36,3 +36,10 @@ services:
     # redis image
     redis:
         image: "redis:alpine"
+
+    nginx:
+        image: nginx:latest
+        ports:
+            - 80:8080
+        volumes:
+            - ./nginx/nginx-setup.conf:/etc/nginx/conf.d/default.conf
